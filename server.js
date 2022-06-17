@@ -6,7 +6,7 @@ const {Server} = require("socket.io");
 const io = new Server(server);
 const path = require('node:path');
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 let users = new Set();
 let votes = {};

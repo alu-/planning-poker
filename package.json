@@ -2,6 +2,7 @@
   "name": "scrumpoker",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://10.95.168.34:5000/",
   "dependencies": {
     "@openfonts/lato_latin": "^1.44.2",
     "@reduxjs/toolkit": "^1.8.1",

@@ -24,8 +24,6 @@ export function Login() {
             });
     }
 
-    username = Date.now(); // TODO Remove testing stuff
-
     return (
         <form
             onSubmit={(event) => formSubmitHandler(event)}
