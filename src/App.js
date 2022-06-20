@@ -1,9 +1,10 @@
 import {Login} from "./Login";
 import {Players} from "./Players";
+import {VotingSummary} from "./VotingSummary";
 import {useSelector} from "react-redux";
-import "./App.css";
 import {VotingCards} from "./VotingCards";
 import {ResetButton} from "./ResetButton";
+import "./App.css";
 
 function App() {
     const username = useSelector(state => state.user.name);
@@ -19,6 +20,7 @@ function App() {
 
                 {!isLoggedIn && <Login/>}
                 {isLoggedIn && <Players/>}
+                {isLoggedIn && <VotingSummary/>}
                 {isLoggedIn && <VotingCards/>}
                 {isLoggedIn && <ResetButton/>}
             </div>
