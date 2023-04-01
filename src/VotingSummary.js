@@ -32,7 +32,7 @@ export function VotingSummary() {
     const avgFib = findClosestFibonacciNumber(avg);
 
     let averageFibonacciText = "";
-    if (avg != avgFib) {
+    if (avg !== avgFib) {
         averageFibonacciText = `(Closest fibonacci number is ${avgFib})`
     }
 

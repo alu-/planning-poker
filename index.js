@@ -5,6 +5,7 @@ const server = http.createServer(app);
 const {Server} = require("socket.io");
 const io = new Server(server);
 const path = require('node:path');
+const port = process.env.PORT || 80;
 
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -13,7 +14,12 @@ let votes = {};
 let votingDone = false;
 
 io.on('connection', (socket) => {
-    console.log('Connection opened with ' + socket.conn.transport.name + ' transport');
+    console.debug('Connection opened with ' + socket.conn.transport.name + ' transport');
+
+    socket.conn.on("upgrade", () => {
+        console.log('Connection upgraded to ' + socket.conn.transport.name + ' transport');
+
+    });
 
     socket.on('Login', (user) => {
         console.log(`Login event for ${user}`);
@@ -74,7 +80,6 @@ io.on('connection', (socket) => {
     });
 });
 
-
-server.listen(5000, () => {
-    console.log('Listening on *:5000');
+server.listen(port, () => {
+    console.log('Listening on *:' + port);
 });
