@@ -14,7 +14,7 @@ export function Login() {
         if (username.length === 0) return false;
 
         socket
-            .emit("Login", username)
+            .emit("Login", username, "I-am-a-room")
             .on("Login.Failure", (message) => {
                 setMessage(message);
             })

@@ -21,12 +21,15 @@ export function Players() {
                 dispatch(remove(player));
             })
             .on("Vote.HasVoted", (user) => {
+                console.log(`${user} has voted`);
                 dispatch(userHasVoted(user));
             })
             .on("Vote.Votes", (votes) => {
+                console.log(votes);
                 dispatch(registerVotes(votes));
             })
             .on("Vote.Reset", () => {
+                console.log("vote reset");
                 dispatch(resetVotes());
             });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
