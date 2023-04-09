@@ -1,0 +1,9 @@
+README.md
+.idea
+.git
+.gitignore
+.dockerignore
+node_modules
+Dockerfile
+Makefile
+docker-compose.yaml

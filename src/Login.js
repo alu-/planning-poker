@@ -4,31 +4,59 @@ import {login} from './redux/slices/userSlice'
 import socket from './Socket';
 
 export function Login() {
-    let [username, setUsername] = useState(localStorage.getItem("username"));
+    let [roomId, setRoomId] = useState(localStorage.getItem("roomId") ?? "");
+    let [username, setUsername] = useState(localStorage.getItem("username") ?? "");
     let [message, setMessage] = useState("");
     const dispatch = useDispatch();
 
     const formSubmitHandler = async (event) => {
         event.preventDefault();
         let username = event.target.elements.username.value;
-        if (username.length === 0) return false;
+        if (username.length === 0) {
+            setMessage("Please specify a username");
+            return false;
+        }
+
+        let roomId = event.target.elements.room.value;
+        if (roomId.length === 0) {
+            setMessage("Please specify a room to join or create");
+            return false;
+        }
 
         socket
-            .emit("Login", username)
+            .emit("Login", username, roomId)
             .on("Login.Failure", (message) => {
                 setMessage(message);
             })
-            .on("Login.Success", (message) => {
+            .on("Login.Success", (payload) => {
                 localStorage.setItem("username", username);
-                dispatch(login(username));
+                localStorage.setItem("roomId", roomId);
+                dispatch(login({
+                    username,
+                    roomId,
+                    isAdmin: payload.isAdmin
+                }));
             });
     }
 
     return (
         <form
             onSubmit={(event) => formSubmitHandler(event)}
+            className={"flex flex-col justify-center items-center"}
         >
-            {message && <p>{message}</p>}
+            {message && <p className={"text-orange-600"}>{message}</p>}
+            <label htmlFor={"room"} className={"block"}>
+                <span className={"text-gray-700"}>Room ID</span>
+                <input type={"text"}
+                       autoComplete="off"
+                       data-lpignore="true"
+                       className={"form-input block mt-1 rounded"}
+                       name={"room"}
+                       id={"room"}
+                       value={roomId}
+                       onChange={(event) => setRoomId(event.target.value)}
+                />
+            </label>
             <label htmlFor={"username"} className={"block"}>
                 <span className={"text-gray-700"}>Username</span>
                 <input type={"text"}
@@ -44,7 +72,7 @@ export function Login() {
 
             <input
                 type={"submit"}
-                className={"mt-1 rounded text-sm text-white font-semibold shadow-sm p-1 bg-cyan-500"}
+                className={"mt-3 w-20 rounded text-sm text-white font-semibold shadow-sm p-1 bg-cyan-500"}
                 value={"Login"}
             />
         </form>

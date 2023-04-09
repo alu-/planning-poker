@@ -21,18 +21,21 @@ export function Players() {
                 dispatch(remove(player));
             })
             .on("Vote.HasVoted", (user) => {
+                console.log(`${user} has voted`);
                 dispatch(userHasVoted(user));
             })
             .on("Vote.Votes", (votes) => {
+                console.log(votes);
                 dispatch(registerVotes(votes));
             })
             .on("Vote.Reset", () => {
+                console.log("vote reset");
                 dispatch(resetVotes());
             });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <div id={"board"} className={"flex flex-row flex-wrap"}>
+        <div id={"board"} className={"flex flex-row flex-wrap items-center justify-center"}>
             {players.map((player) => {
                 return (
                     <Player
