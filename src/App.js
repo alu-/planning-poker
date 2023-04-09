@@ -13,8 +13,8 @@ function App() {
     return (
         <div className="App">
             <div className={"container mx-auto"}>
-                <header className={"mb-5"}>
-                    <p>Scrum Poker — ♠ ♥ ♦ ♣</p>
+                <header className={"m-5 text-center"}>
+                    <h1 className={"text-xl antialiased"}>Poker Planning — ♠ ♥ ♦ ♣</h1>
                     {isLoggedIn && <p className={"mt-1"}>You are logged in as <i>{username}</i>.</p>}
                 </header>
 
