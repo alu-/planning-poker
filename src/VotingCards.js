@@ -18,7 +18,7 @@ export function VotingCards() {
     };
 
     return (
-        <div className={"flex flex-row flex-wrap"}>
+        <div className={"flex flex-row flex-wrap items-center justify-center"}>
             {fibonacci.map((number) => {
                 let wrapperClasses = ["flex", "items-center", "justify-center", "border-2", "border-blue-500", "rounded", "m-2", "w-20", "h-24"];
                 let textColor = "text-blue-700";

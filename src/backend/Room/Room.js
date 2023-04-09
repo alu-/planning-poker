@@ -1,6 +1,7 @@
 module.exports = class Room {
     constructor(name) {
         this.name = name;
+        this.admin = null;
         this.players = new Set();
         this.votes = {}
         this.votingDone = false;
@@ -51,5 +52,13 @@ module.exports = class Room {
     resetVotes() {
         this.votes = {};
         this.votingDone = false;
+    }
+
+    setAdmin(user) {
+        this.admin = user;
+    }
+
+    isAdmin(user) {
+        return user === this.admin;
     }
 }

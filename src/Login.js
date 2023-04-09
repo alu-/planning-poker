@@ -4,7 +4,7 @@ import {login} from './redux/slices/userSlice'
 import socket from './Socket';
 
 export function Login() {
-    let [roomId, setRoomId] = useState("");
+    let [roomId, setRoomId] = useState(localStorage.getItem("roomId") ?? "");
     let [username, setUsername] = useState(localStorage.getItem("username") ?? "");
     let [message, setMessage] = useState("");
     const dispatch = useDispatch();
@@ -17,14 +17,25 @@ export function Login() {
             return false;
         }
 
+        let roomId = event.target.elements.room.value;
+        if (roomId.length === 0) {
+            setMessage("Please specify a room to join or create");
+            return false;
+        }
+
         socket
-            .emit("Login", username, "I-am-a-room")
+            .emit("Login", username, roomId)
             .on("Login.Failure", (message) => {
                 setMessage(message);
             })
-            .on("Login.Success", (message) => {
+            .on("Login.Success", (payload) => {
                 localStorage.setItem("username", username);
-                dispatch(login(username));
+                localStorage.setItem("roomId", roomId);
+                dispatch(login({
+                    username,
+                    roomId,
+                    isAdmin: payload.isAdmin
+                }));
             });
     }
 

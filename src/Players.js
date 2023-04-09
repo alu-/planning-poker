@@ -35,7 +35,7 @@ export function Players() {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <div id={"board"} className={"flex flex-row flex-wrap"}>
+        <div id={"board"} className={"flex flex-row flex-wrap items-center justify-center"}>
             {players.map((player) => {
                 return (
                     <Player
