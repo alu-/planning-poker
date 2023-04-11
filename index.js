@@ -6,9 +6,12 @@ const fs = require("fs");
 const options = {
     key: fs.readFileSync("/etc/letsencrypt/live/planning-poker.io/privkey.pem", 'utf8'),
     cert: fs.readFileSync("/etc/letsencrypt/live/planning-poker.io/cert.pem", 'utf8'),
-    ca: fs.readFileSync('/etc/letsencrypt/live/yourdomain.com/chain.pem', 'utf8')
+    ca: fs.readFileSync('/etc/letsencrypt/live/planning-poker.io/chain.pem', 'utf8')
 };
-const httpServer = https.createServer(options, app);
+const httpServer = http.createServer((req, res) => {
+    res.writeHead(301,{Location: `https://${req.headers.host}${req.url}`});
+    res.end();
+});
 const httpsServer = https.createServer(options, app);
 const {Server} = require("socket.io");
 const io = new Server(httpsServer);
