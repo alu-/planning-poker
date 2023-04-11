@@ -1,4 +1,5 @@
 const express = require('express');
+const compress = require('compression');
 const app = express();
 const http = require('http');
 const https = require("https");
@@ -20,6 +21,7 @@ const socketEndpoints = require("./src/backend/Socket/SocketHandler");
 const httpPort = process.env.PORT || 80;
 const https_port = process.env.HTTPS_PORT || 443;
 
+app.use(compress());
 app.use(express.static(path.join(__dirname, 'build')));
 
 const onConnection = (socket) => {
